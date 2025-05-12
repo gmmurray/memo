@@ -1,0 +1,17 @@
+.overlay {
+  inset: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  gap: 1rem;
+  border-radius: var(--chakra-radii-l3);
+  text-align: center;
+}
+
+.play {
+  all: unset;
+  cursor: pointer;
+}
