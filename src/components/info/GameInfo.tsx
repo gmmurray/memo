@@ -1,4 +1,4 @@
-import { Box, Card, Tabs } from '@chakra-ui/react';
+import { Card, Tabs } from '@chakra-ui/react';
 
 import GameSettings from './settings/GameSettings';
 import GameStats from './stats/GameStats';

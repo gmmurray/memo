@@ -1,4 +1,6 @@
+import { Button, Center, Heading, Stack } from '@chakra-ui/react';
 import { Fragment, useCallback } from 'react';
+import { PiPlay, PiPlayFill } from 'react-icons/pi';
 import {
   gameStateAtom,
   resetGameAtom,
@@ -6,7 +8,6 @@ import {
 } from '../../state/gameStateAtom';
 import { useAtomValue, useSetAtom } from 'jotai';
 
-import { Play } from '@phosphor-icons/react';
 import classes from './GameGridOverlay.module.css';
 import { formatSecondsDuration } from '../../lib/dayjs/dayjs';
 
@@ -23,17 +24,19 @@ function GameGridOverlay() {
   if (gamePhase === 'playing') return null;
 
   return (
-    <div className={classes.overlay}>
-      {gamePhase === 'idle' && <StartGame onClick={startGame} />}
-      {gamePhase === 'lost' && <LostGame onClick={handleRestartGame} />}
-      {gamePhase === 'won' && (
-        <WonGame
-          moves={moves}
-          elapsedSeconds={elapsedSeconds}
-          onClick={handleRestartGame}
-        />
-      )}
-    </div>
+    <Center className={classes.overlay}>
+      <Stack>
+        {gamePhase === 'idle' && <StartGame onClick={startGame} />}
+        {gamePhase === 'lost' && <LostGame onClick={handleRestartGame} />}
+        {gamePhase === 'won' && (
+          <WonGame
+            moves={moves}
+            elapsedSeconds={elapsedSeconds}
+            onClick={handleRestartGame}
+          />
+        )}
+      </Stack>
+    </Center>
   );
 }
 
@@ -45,7 +48,7 @@ type StartGameProps = {
 const StartGame = ({ onClick }: StartGameProps) => {
   return (
     <button onClick={onClick} className={classes.play}>
-      <Play size="40" />
+      <PiPlay size="40" />
     </button>
   );
 };
@@ -56,10 +59,10 @@ type LostGameProps = {
 const LostGame = ({ onClick }: LostGameProps) => {
   return (
     <Fragment>
-      <h2>You lost</h2>
-      <button onClick={onClick} className="secondary">
-        Try again
-      </button>
+      <Heading size="xl">You lost</Heading>
+      <Button onClick={onClick}>
+        <PiPlayFill /> Try again
+      </Button>
     </Fragment>
   );
 };
@@ -72,12 +75,12 @@ type WonGameProps = {
 const WonGame = ({ onClick, moves, elapsedSeconds }: WonGameProps) => {
   return (
     <Fragment>
-      <h2>You won!</h2>
+      <Heading size="xl">You won!</Heading>
       <div>{`${moves} move${moves === 1 ? '' : 's'}`}</div>
       <div>{formatSecondsDuration(elapsedSeconds)}</div>
-      <button onClick={onClick} className="">
-        New game
-      </button>
+      <Button onClick={onClick}>
+        <PiPlayFill /> New game
+      </Button>
     </Fragment>
   );
 };

@@ -1,12 +1,8 @@
 import { Container, SimpleGrid, Stack } from '@chakra-ui/react';
 
-import GameBar from './components/bar/GameBar';
 import GameGrid from './components/grid/GameGrid';
 import GameHeader from './components/header/GameHeader';
 import GameInfo from './components/info/GameInfo';
-import GameInfoOld from './components/info/GameInfoOld';
-import classes from './App.module.css';
-import clsx from 'clsx';
 
 function App() {
   return (

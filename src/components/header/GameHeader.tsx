@@ -29,6 +29,7 @@ function GameHeader() {
 }
 
 export default GameHeader;
+
 const StartGame = () => {
   const startGame = useSetAtom(startGameAtom);
   return <Button onClick={startGame}>Start</Button>;
