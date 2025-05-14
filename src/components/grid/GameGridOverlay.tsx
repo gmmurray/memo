@@ -57,7 +57,7 @@ type StartGameProps = {
 };
 const StartGame = ({ onClick }: StartGameProps) => {
   return (
-    <button onClick={onClick} style={{ cursor: 'pointer' }}>
+    <button onClick={onClick} style={{ cursor: 'pointer', color: 'white' }}>
       <PiPlay size="40" />
     </button>
   );
@@ -75,7 +75,7 @@ const LostGame = ({ onClick, reason }: LostGameProps) => {
       <Heading size="xl" color="red">
         You lost
       </Heading>
-      {reasonText && <Text>{reasonText}</Text>}
+      {reasonText && <Text color="white">{reasonText}</Text>}
       <Button onClick={onClick}>
         <PiPlayFill /> Try again
       </Button>
@@ -91,9 +91,11 @@ type WonGameProps = {
 const WonGame = ({ onClick, moves, elapsedSeconds }: WonGameProps) => {
   return (
     <Fragment>
-      <Heading size="xl">You won!</Heading>
-      <div>{`${moves} move${moves === 1 ? '' : 's'}`}</div>
-      <div>{formatSecondsDuration(elapsedSeconds)}</div>
+      <Heading size="xl" color="white">
+        You won!
+      </Heading>
+      <Text color="white">{`${moves} move${moves === 1 ? '' : 's'}`}</Text>
+      <Text color="white">{formatSecondsDuration(elapsedSeconds)}</Text>
       <Button onClick={onClick}>
         <PiPlayFill /> New game
       </Button>
