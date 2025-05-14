@@ -1,4 +1,5 @@
 import 'jotai-devtools/styles.css';
+import '@fontsource-variable/manrope/index.css';
 
 import App from './App.tsx';
 import JotaiDevTools from './lib/jotai/JotaiDevTools.tsx';

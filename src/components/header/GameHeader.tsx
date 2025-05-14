@@ -1,4 +1,4 @@
-import { Box, Button, Card, Group, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, Card, Heading, Stack, Text } from '@chakra-ui/react';
 import {
   gameStateAtom,
   resetGameAtom,
@@ -10,19 +10,17 @@ function GameHeader() {
   const gameState = useAtomValue(gameStateAtom);
   return (
     <Card.Root>
-      <Card.Header>
-        <Heading size="3xl">Memo.</Heading>
-      </Card.Header>
       <Card.Body>
-        <Group>
-          <Text fontSize="md" color="fg.muted">
+        <Heading size="3xl">Memo.</Heading>
+        <Stack direction={{ base: 'column', md: 'row' }}>
+          <Text fontSize="md" color="fg.muted" alignSelf="end">
             Patterns. Colors. Shapes. We all know them, but how well can you
             remember them? Let's find out.
           </Text>
-          <Box ml="auto">
+          <Box ml={{ base: undefined, md: 'auto' }}>
             {gameState.gamePhase === 'idle' ? <StartGame /> : <ResetGame />}
           </Box>
-        </Group>
+        </Stack>
       </Card.Body>
     </Card.Root>
   );

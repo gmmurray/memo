@@ -1,19 +1,21 @@
+import { Box, Card } from '@chakra-ui/react';
 import {
   GameTileState,
   gameStateAtom,
   gameStepAtom,
 } from '../../state/gameStateAtom';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import {
+  gameSettingsAtom,
+  selectedThemeTypeAtom,
+} from '../../state/gameSettingsAtom';
+import { useAtomValue, useSetAtom } from 'jotai';
 
-import { Card } from '@chakra-ui/react';
 import GameGridOverlay from './GameGridOverlay';
 import GameTile from './GameTile';
-import classes from './GameGrid.module.css';
-import { gameSettingsAtom } from '../../state/gameSettingsAtom';
 import { useMemo } from 'react';
 
 function GameGrid() {
-  const [{ gridSize }] = useAtom(gameSettingsAtom);
+  const { gridSize } = useAtomValue(gameSettingsAtom);
   const {
     tiles,
     tileOrder,
@@ -21,6 +23,7 @@ function GameGrid() {
     gamePhase,
   } = useAtomValue(gameStateAtom);
   const selectTile = useSetAtom(gameStepAtom);
+  const themeType = useAtomValue(selectedThemeTypeAtom);
 
   const ids = useMemo(
     () =>
@@ -31,13 +34,21 @@ function GameGrid() {
   );
 
   return (
-    <Card.Root className={classes.wrapper}>
-      <Card.Body>
-        <div
-          className={classes.grid}
-          style={{
-            gridTemplateColumns: `repeat(${gridSize}, 1fr)`,
-          }}
+    <Card.Root
+      w={['100%', '100%']}
+      maxW="600px"
+      aspectRatio="1 / 1"
+      overflow="hidden"
+      borderRadius="0.5rem"
+      position="relative"
+    >
+      <Card.Body w="100%" h="100%">
+        <Box
+          w="100%"
+          mx="auto"
+          display="grid"
+          gap="4px"
+          gridTemplateColumns={`repeat(${gridSize}, 1fr)`}
         >
           {ids.map(id => {
             const tile: GameTileState | undefined = tiles[id];
@@ -51,10 +62,11 @@ function GameGrid() {
                 value={tile?.value}
                 isShown={isShown}
                 onClick={onClick}
+                type={themeType}
               />
             );
           })}
-        </div>
+        </Box>
         <GameGridOverlay />
       </Card.Body>
     </Card.Root>

@@ -1,18 +1,19 @@
-import { Button, Center, Heading, Stack } from '@chakra-ui/react';
+import { Button, Center, Heading, Stack, Text } from '@chakra-ui/react';
 import { Fragment, useCallback } from 'react';
-import { PiPlay, PiPlayFill } from 'react-icons/pi';
 import {
+  GameLossReason,
   gameStateAtom,
   resetGameAtom,
   startGameAtom,
 } from '../../state/gameStateAtom';
+import { PiPlay, PiPlayFill } from 'react-icons/pi';
 import { useAtomValue, useSetAtom } from 'jotai';
 
-import classes from './GameGridOverlay.module.css';
 import { formatSecondsDuration } from '../../lib/dayjs/dayjs';
 
 function GameGridOverlay() {
-  const { gamePhase, moves, elapsedSeconds } = useAtomValue(gameStateAtom);
+  const { gamePhase, moves, elapsedSeconds, gameLossReason } =
+    useAtomValue(gameStateAtom);
   const startGame = useSetAtom(startGameAtom);
   const resetGame = useSetAtom(resetGameAtom);
 
@@ -24,10 +25,19 @@ function GameGridOverlay() {
   if (gamePhase === 'playing') return null;
 
   return (
-    <Center className={classes.overlay}>
+    <Center
+      inset="0"
+      pos="absolute"
+      bgColor="rgba(0, 0, 0, 0.8)"
+      gap="1rem"
+      borderRadius="var(--chakra-radii-l3)"
+      textAlign="center"
+    >
       <Stack>
         {gamePhase === 'idle' && <StartGame onClick={startGame} />}
-        {gamePhase === 'lost' && <LostGame onClick={handleRestartGame} />}
+        {gamePhase === 'lost' && (
+          <LostGame onClick={handleRestartGame} reason={gameLossReason} />
+        )}
         {gamePhase === 'won' && (
           <WonGame
             moves={moves}
@@ -47,7 +57,7 @@ type StartGameProps = {
 };
 const StartGame = ({ onClick }: StartGameProps) => {
   return (
-    <button onClick={onClick} className={classes.play}>
+    <button onClick={onClick} style={{ cursor: 'pointer' }}>
       <PiPlay size="40" />
     </button>
   );
@@ -55,11 +65,17 @@ const StartGame = ({ onClick }: StartGameProps) => {
 
 type LostGameProps = {
   onClick: () => unknown;
+  reason: GameLossReason;
 };
-const LostGame = ({ onClick }: LostGameProps) => {
+const LostGame = ({ onClick, reason }: LostGameProps) => {
+  const reasonText =
+    !!reason && gameLossReasonMap[reason] ? gameLossReasonMap[reason] : null;
   return (
     <Fragment>
-      <Heading size="xl">You lost</Heading>
+      <Heading size="xl" color="red">
+        You lost
+      </Heading>
+      {reasonText && <Text>{reasonText}</Text>}
       <Button onClick={onClick}>
         <PiPlayFill /> Try again
       </Button>
@@ -83,4 +99,10 @@ const WonGame = ({ onClick, moves, elapsedSeconds }: WonGameProps) => {
       </Button>
     </Fragment>
   );
+};
+
+const gameLossReasonMap = {
+  moves: 'You ran out of moves',
+  time: 'You ran out of time',
+  manual: null,
 };

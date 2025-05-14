@@ -1,19 +1,19 @@
 import { Card, Tabs } from '@chakra-ui/react';
 
+import GameScore from './score/GameScore';
 import GameSettings from './settings/GameSettings';
-import GameStats from './stats/GameStats';
 
 function GameInfo() {
   return (
-    <Card.Root>
+    <Card.Root w="100%" h="100%">
       <Card.Body>
-        <Tabs.Root defaultValue="stats">
+        <Tabs.Root defaultValue="score">
           <Tabs.List>
-            <Tabs.Trigger value="stats">Stats</Tabs.Trigger>
+            <Tabs.Trigger value="score">Score</Tabs.Trigger>
             <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
           </Tabs.List>
-          <Tabs.Content value="stats">
-            <GameStats />
+          <Tabs.Content value="score">
+            <GameScore />
           </Tabs.Content>
           <Tabs.Content value="settings">
             <GameSettings />
