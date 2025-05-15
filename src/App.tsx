@@ -10,7 +10,7 @@ function App() {
       <Container maxW="6xl" py="10">
         <Stack gap="20px">
           <GameHeader />
-          <Flex direction={['column', 'row']} gap="20px">
+          <Flex direction={{ base: 'column', md: 'row' }} gap="20px">
             <Box w="100%" maxW="600px" flexShrink={0}>
               <GameGrid />
             </Box>
