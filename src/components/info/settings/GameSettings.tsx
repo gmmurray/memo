@@ -22,7 +22,7 @@ function GameSettings() {
 
   return (
     <Stack gap="4">
-      <Stack direction={{ base: 'column', md: 'row' }}>
+      <Stack direction={{ base: 'column', sm: 'row' }}>
         <StandardSelect
           title="Difficulty"
           placeholder="Select a difficulty"
@@ -61,7 +61,7 @@ function GameSettings() {
                 }
                 items={gridSizeOptions}
               />
-              <Stack direction={{ base: 'column', md: 'row' }}>
+              <Stack direction={{ base: 'column', sm: 'row' }}>
                 <StandardNumberInput
                   label="Move limit"
                   value={

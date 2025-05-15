@@ -1,4 +1,3 @@
-import { Box, Card } from '@chakra-ui/react';
 import {
   GameTileState,
   gameStateAtom,
@@ -10,7 +9,7 @@ import {
 } from '../../state/gameSettingsAtom';
 import { useAtomValue, useSetAtom } from 'jotai';
 
-import GameGridOverlay from './GameGridOverlay';
+import { Box } from '@chakra-ui/react';
 import GameTile from './GameTile';
 import { useMemo } from 'react';
 
@@ -34,15 +33,14 @@ function GameGrid() {
   );
 
   return (
-    <Card.Root
+    <Box
       w={['100%', '100%']}
       maxW="600px"
       aspectRatio="1 / 1"
       overflow="hidden"
       borderRadius="0.5rem"
-      position="relative"
     >
-      <Card.Body w="100%" h="100%">
+      <Box w="100%" h="100%" p="var(--card-padding)">
         <Box
           w="100%"
           mx="auto"
@@ -67,9 +65,8 @@ function GameGrid() {
             );
           })}
         </Box>
-        <GameGridOverlay />
-      </Card.Body>
-    </Card.Root>
+      </Box>
+    </Box>
   );
 }
 

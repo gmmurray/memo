@@ -12,12 +12,16 @@ function GameHeader() {
     <Card.Root>
       <Card.Body>
         <Heading size="3xl">Memo.</Heading>
-        <Stack direction={{ base: 'column', md: 'row' }}>
-          <Text fontSize="md" color="fg.muted" alignSelf="end">
+        <Stack direction={{ base: 'column', lg: 'row' }}>
+          <Text
+            fontSize="md"
+            color="fg.muted"
+            alignSelf={{ base: 'start', lg: 'end' }}
+          >
             Patterns. Colors. Shapes. We all know them, but how well can you
             remember them? Let's find out.
           </Text>
-          <Box ml={{ base: undefined, md: 'auto' }}>
+          <Box ml={{ base: undefined, lg: 'auto' }}>
             {gameState.gamePhase === 'idle' ? <StartGame /> : <ResetGame />}
           </Box>
         </Stack>
