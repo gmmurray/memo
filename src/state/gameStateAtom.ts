@@ -161,6 +161,10 @@ export const startGameClockAtom = atom(null, (get, set) => {
 });
 
 export const resetGameAtom = atom(null, (_, set) => {
+  if (hideTileTimeout) {
+    clearTimeout(hideTileTimeout)
+    hideTileTimeout = null
+  }
   stopGameClock();
 
   set(gameStateAtom, initialGameState);
